@@ -6,6 +6,10 @@ include_once 'resources/RiskIndexResource.php';
 include_once 'resources/RiskIndividualResource.php';
 
 if(isset($_POST['submit'])){
+  /**
+   * Here we have to get api end points from database, but for now i just put them in array to get specified api on the
+   * basis of user selection
+   */
     $api_endpoints = [
         'Validifiv3-fi-risk-index' => 'https://de20dc0b-4015-431e-ae42-0dbc6260eee3.mock.pstmn.io/validifiv3-fi-risk-index',
         'Validifiv3-account-validation' => 'https://de20dc0b-4015-431e-ae42-0dbc6260eee3.mock.pstmn.io/validifiv3-account-validation',
@@ -14,14 +18,18 @@ if(isset($_POST['submit'])){
 
     $api = $_POST['api'];
     
+    // Check if api value send by user doesnot exists
     if(!isset($api_endpoints[$api])){
         $_SESSION['response']['error'] = 'Invalid API Request';
         header("Location: index.php");
     }
+
+    
     $http = new Http();
     $result = $http->get($api_endpoints[$api]);
     $response = [];
 
+    // Parsing api response, Every api has separate parser
     if(empty($result['error'])){
         switch ($api) {
             case "Validifiv3-fi-risk-index":
