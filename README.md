@@ -4,6 +4,7 @@
 2) run the project by typing localhost/project folder
 3) Select api type from drop down and submit
 4) Make sure curl library is properly installed and configured on system
+5) PHP 7.2
 
 <h1>My Review about this implementation</h1>
 
